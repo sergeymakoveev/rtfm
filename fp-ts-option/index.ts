@@ -1,6 +1,18 @@
 import { sequenceT } from 'fp-ts/lib/Apply';
+import { eqNumber } from 'fp-ts/lib/Eq';
 import { constant, identity, pipe } from 'fp-ts/lib/function';
-import { fold, fromNullable, getOrElse, map, option, some, toNullable } from 'fp-ts/lib/Option';
+import {
+	fold,
+	fromNullable,
+	getFirstMonoid,
+	getLastMonoid,
+	getOrElse,
+	map,
+	none,
+	option,
+	some,
+	toNullable,
+} from 'fp-ts/lib/Option';
 
 export const getRandomBoolean = () => Math.random() > 0.5;
 export const getNullableValue = <T>(value: T): T | null => (getRandomBoolean() ? value : null);
@@ -48,24 +60,40 @@ console.log(
 	arrayNumber.some(value => value % 2),
 	arrayNumber.every(value => value % 2),
 	arrayNumber.reduce((acc, value) => ({ ...acc, [value]: value }), {}),
+	arrayNumber.toString(),
 );
 
-const optionNumber = fromNullable(getNullableValue(1)); // Option<number>
+const valueNumber = 1;
+const optionNumber = fromNullable(getNullableValue(valueNumber)); // Option<number>
 console.log(
 	optionNumber.map(value => value + 1),
 	optionNumber.filter(value => Boolean(value % 2)),
 	optionNumber.exists(value => Boolean(value % 2)),
+	optionNumber.isNone(),
+	optionNumber.isSome(),
 	optionNumber.reduce({}, (acc, value) => ({ ...acc, [value]: value })),
+	optionNumber.toString(),
+);
+
+console.log(
+	optionNumber.contains(eqNumber, valueNumber),
 	optionNumber.fold(0, value => value),
 	optionNumber.fold(0, identity),
 	optionNumber.getOrElse(0),
 	optionNumber.alt(some(2)),
 );
 
-// const bidOption = fromNullable(bid);
-// const askOption = fromNullable(ask);
-// const sequenceTOption = sequenceT(option);
-// const quoteOption = sequenceTOption(bidOption, askOption);
+const firstMonoidNumber = getFirstMonoid<number>();
+const lastMonoidNumber = getLastMonoid<number>();
+console.log(
+	// firstMonoidNumber.concat(none, some(1)),
+	// lastMonoidNumber.concat(none, some(1)),
+	// firstMonoidNumber.concat(some(1), some(2)),
+	// lastMonoidNumber.concat(some(1), some(2)),
+	[none, some(1), some(2)].reduce(firstMonoidNumber.concat, none),
+	[none, some(1), some(2)].reduce(lastMonoidNumber.concat, none),
+);
+
 // const deltaOption = map(([bid, ask]) => getDelta(bid, ask))(quoteOption);
 // const sideOption = map(([bid, ask]) => getSide(bid, ask))(quoteOption);
 // console.log({
