@@ -1,5 +1,6 @@
 // import { sequenceT } from 'fp-ts/lib/Apply';
-// import { fromNullable, option } from 'fp-ts/lib/Option';
+// import { constant, pipe } from 'fp-ts/lib/function';
+// import { fold, fromNullable, getOrElse, map, option, toNullable } from 'fp-ts/lib/Option';
 import { getNullableValue } from '../helpers';
 
 const bid = getNullableValue(10);
@@ -36,4 +37,20 @@ console.log({ bid, ask, delta, side });
 // 	ask: askOption.fold('-', ask => `${ask}`),
 // 	delta: deltaOption.map(delta => `${delta}`).getOrElse('-'),
 // 	side: sideOption.getOrElse('sell'),
+// });
+
+// const bidOption = fromNullable(bid);
+// const askOption = fromNullable(ask);
+// const sequenceTOption = sequenceT(option);
+// const quoteOption = sequenceTOption(bidOption, askOption);
+// const deltaOption = map(([bid, ask]) => getDelta(bid, ask))(quoteOption);
+// const sideOption = map(([bid, ask]) => getSide(bid, ask))(quoteOption);
+// console.log({
+// 	bid: toNullable(bidOption),
+// 	ask: fold(constant('-'), ask => `${ask}`)(askOption),
+// 	delta: pipe(
+// 		map(delta => `${delta}`),
+// 		getOrElse(constant('sell')),
+// 	)(deltaOption),
+// 	side: getOrElse(constant('sell'))(sideOption),
 // });
