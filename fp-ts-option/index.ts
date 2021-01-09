@@ -1,18 +1,7 @@
 import { sequenceT } from 'fp-ts/lib/Apply';
 import { eqNumber } from 'fp-ts/lib/Eq';
 import { constant, identity } from 'fp-ts/lib/function';
-import {
-	fold,
-	fromNullable,
-	getFirstMonoid,
-	getLastMonoid,
-	getOrElse,
-	map,
-	none,
-	option,
-	some,
-	toNullable,
-} from 'fp-ts/lib/Option';
+import * as O from 'fp-ts/lib/Option';
 import { pipe } from 'fp-ts/lib/pipeable';
 
 export const getRandomBoolean = () => Math.random() > 0.5;
@@ -32,9 +21,9 @@ console.log({ bid, ask, delta, side });
 // const side = bid !== null && ask !== null ? getSide(bid, ask) : null;
 // console.log({ bid, ask, delta, side });
 
-// const bidOption = fromNullable(bid);
-// const askOption = fromNullable(ask);
-// const sequenceTOption = sequenceT(option);
+// const bidOption = O.fromNullable(bid);
+// const askOption = O.fromNullable(ask);
+// const sequenceTOption = sequenceT(O.option);
 // const quoteOption = sequenceTOption(bidOption, askOption);
 // const deltaOption = quoteOption.map(([bid, ask]) => getDelta(bid, ask));
 // const sideOption = quoteOption.map(([bid, ask]) => getSide(bid, ask));
@@ -95,15 +84,15 @@ console.log({ bid, ask, delta, side });
 // 	[none, some(1), some(2)].reduce(lastMonoidNumber.concat, none),
 // );
 
-// const deltaOption = map(([bid, ask]) => getDelta(bid, ask))(quoteOption);
-// const sideOption = map(([bid, ask]) => getSide(bid, ask))(quoteOption);
+// const deltaOption = O.map(([bid, ask]) => getDelta(bid, ask))(quoteOption);
+// const sideOption = O.map(([bid, ask]) => getSide(bid, ask))(quoteOption);
 // console.log({
-// 	bid: toNullable(bidOption),
-// 	ask: fold(constant('-'), ask => `${ask}`)(askOption),
+// 	bid: O.toNullable(bidOption),
+// 	ask: O.fold(constant('-'), ask => `${ask}`)(askOption),
 // 	delta: pipe(
 // 		deltaOption,
-// 		map(delta => `${delta}`),
-// 		getOrElse(constant('sell')),
+// 		O.map(delta => `${delta}`),
+// 		O.getOrElse(constant('sell')),
 // 	),
-// 	side: getOrElse(constant('sell'))(sideOption),
+// 	side: O.getOrElse(constant('sell'))(sideOption),
 // });

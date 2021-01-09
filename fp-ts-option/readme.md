@@ -1,4 +1,3 @@
-
 # fp-ts/Options
 
 * [Src](https://github.com/gcanti/fp-ts/blob/1.19.5/src/Option.ts)
