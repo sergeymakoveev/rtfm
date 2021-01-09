@@ -13,10 +13,10 @@
     "prettier:fix": "prettier --write ./",
     "test": "yarn eslint",
     "start:fp-ts-option": "ts-node fp-ts-option/index.ts",
-    "start:fp-ts-ether": "ts-node fp-ts-ether/index.ts --"
+    "start:fp-ts-ether": "ts-node fp-ts-ether/index.ts",
+    "start:io-ts": "ts-node io-ts/index.ts"
   },
   "dependencies": {
-    // "fp-ts": "^1.19.5",
     "fp-ts": "^2.9.3",
     "io-ts": "^2.2.13",
     "rxjs": "^6.6.3",
