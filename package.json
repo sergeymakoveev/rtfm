@@ -12,7 +12,8 @@
     "prettier": "prettier --check  ./",
     "prettier:fix": "prettier --write ./",
     "test": "yarn eslint",
-    "start:fp-ts-option": "ts-node fp-ts-option/index.ts"
+    "start:fp-ts-option": "ts-node fp-ts-option/index.ts",
+    "start:fp-ts-ether": "ts-node fp-ts-ether/index.ts --"
   },
   "dependencies": {
     "fp-ts": "^1.19.5",

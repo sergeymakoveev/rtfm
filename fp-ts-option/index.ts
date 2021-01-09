@@ -1,6 +1,6 @@
 import { sequenceT } from 'fp-ts/lib/Apply';
 import { eqNumber } from 'fp-ts/lib/Eq';
-import { constant, identity, pipe } from 'fp-ts/lib/function';
+import { constant, identity } from 'fp-ts/lib/function';
 import {
 	fold,
 	fromNullable,
@@ -13,6 +13,7 @@ import {
 	some,
 	toNullable,
 } from 'fp-ts/lib/Option';
+import { pipe } from 'fp-ts/lib/pipeable';
 
 export const getRandomBoolean = () => Math.random() > 0.5;
 export const getNullableValue = <T>(value: T): T | null => (getRandomBoolean() ? value : null);
@@ -100,8 +101,9 @@ console.log({ bid, ask, delta, side });
 // 	bid: toNullable(bidOption),
 // 	ask: fold(constant('-'), ask => `${ask}`)(askOption),
 // 	delta: pipe(
+// 		deltaOption,
 // 		map(delta => `${delta}`),
 // 		getOrElse(constant('sell')),
-// 	)(deltaOption),
+// 	),
 // 	side: getOrElse(constant('sell'))(sideOption),
 // });
