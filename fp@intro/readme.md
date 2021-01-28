@@ -15,14 +15,14 @@
 * [GraphQL] в этом году обещает выйти в широкое использование проектами
 * [GraphQL]-библиотеки ([Apollo], [Relay]) не пользуются особой популярностью - большинство использует собственные решения?
 
-[Front-end Frameworks](https://2020.stateofjs.com/en-US/technologies/front-end-frameworks/)
+[Front-end Frameworks](https://2020.stateofjs.com/ru-RU/technologies/front-end-frameworks/)
 * появилось много новых игроков, [Svelte] - фаворит
 * тройка наиболее используемых не изменилась
 
 [Data Layer](https://2020.stateofjs.com/ru-RU/technologies/datalayer/)
 * [GraphQL] останется с нами навсегда, как и REST
 * тройка [GraphQL]+[Relay]+[Apollo] без сомнений лидируют наравне с [Redux], который значительно сдал позиции относительно прошлого года
-* мы неплохо ориентируемся в Redux-стеке, но пришла пора подбирать решения для GraphQL-стека
+* мы неплохо ориентируемся в Redux-стеке, но пришла пора подбирать решения для [GraphQL-стека](https://landscape.graphql.org/)
 
 [Build tools](https://2020.stateofjs.com/ru-RU/technologies/build-tools/)
 * много новых сборщиков, преследуют разные цели:
@@ -32,7 +32,7 @@
   - zero configuration ([parsel], [esbuild])
 * в качестве сборщика стал выступать tsc (typescript cli) - как следствие отказа от использования бандлеров
   в пользу поддержания набора скриптов для сборки
-* из интересных - [Rome]):
+* из интересных - [Rome]:
   - Rome is a linter, compiler, bundler, and more for JavaScript, [TypeScript], JSON, HTML, Markdown, and CSS.
   - Rome is designed to replace Babel, ESLint, webpack, Prettier, Jest, and others.
 
