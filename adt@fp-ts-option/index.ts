@@ -45,12 +45,12 @@ console.log({ bid, ask, delta });
 // 	side: sideOption.toNullable(),
 // });
 
-const stringifyOption = <T>(value: Option<T>) => value.fold('-', value => `${value}`);
+// const stringifyOption = <T>(value: Option<T>) => value.fold('-', value => `${value}`);
 
 // console.log({
-// 	bid: bidOption.toNullable(),
+// 	bid: bidOption.map(delta => `${delta}`).getOrElse('-'),
 // 	ask: askOption.fold('-', ask => `${ask}`),
-// 	delta: deltaOption.map(delta => `${delta}`).getOrElse('-'),
+// 	delta: stringifyOption(deltaOption),
 // 	side: sideOption.getOrElse('sell'),
 // });
 
