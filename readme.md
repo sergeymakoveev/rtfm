@@ -4,7 +4,7 @@
 * [fp]
 * [fp-ts](https://gcanti.github.io/fp-ts)
 
-2. [fp-ts/Options](./fp-ts-option/readme.md)
+2. [fp-ts/Options](fp-ts-option/readme.md)
 
 3. Ether
 
