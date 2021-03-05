@@ -21,6 +21,8 @@ console.log({ bid, ask, delta });
 // const sideNullable = bidNullable !== null && askNullable !== null && bidNullable - askNullable > 0 ? 'sell' : 'buy';
 // console.log({ bidNullable, askNullable, deltaNullable, sideNullable });
 
+/* divide by zero - ? */
+
 // const getDelta = (bid: number, ask: number) => Math.abs(bidNullable - ask);
 // const getSide = (bid: number, ask: number) => (bid - ask > 0 ? 'sell' : 'buy');
 // const delta = bidNullable !== null && askNullable !== null ? getDelta(bidNullable, askNullable) : null;
