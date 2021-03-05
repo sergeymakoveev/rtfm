@@ -14,7 +14,10 @@ console.log({ bid, ask, delta });
 // const getNullableValue = <T>(value: T): T | null => (Math.random() > 0.5 ? value : null);
 
 // const bidNullable = getNullableValue(bid);
-// const askNullable = getNullableValue(7);
+// const askNullable = getNullableValue(ask);
+
+// console.log(bidNullable);
+
 // const deltaNullable = bidNullable - askNullable;
 
 // const deltaNullable = bidNullable !== null && askNullable !== null ? Math.abs(bidNullable - askNullable) : null;
@@ -23,11 +26,11 @@ console.log({ bid, ask, delta });
 
 /* divide by zero - ? */
 
-// const getDelta = (bid: number, ask: number) => Math.abs(bidNullable - ask);
+// const getDelta = (bid: number, ask: number) => Math.abs(bid - ask);
 // const getSide = (bid: number, ask: number) => (bid - ask > 0 ? 'sell' : 'buy');
 // const delta = bidNullable !== null && askNullable !== null ? getDelta(bidNullable, askNullable) : null;
 // const side = bidNullable !== null && askNullable !== null ? getSide(bidNullable, askNullable) : null;
-// console.log({ bidNullable, askNullable, deltaNullable, sideNullable });
+// console.log({ bidNullable, askNullable });
 
 // console.log('some(1):', JSON.stringify(some(1)));
 // console.log('none:', JSON.stringify(none));
@@ -38,7 +41,8 @@ console.log({ bid, ask, delta });
 // const quoteOption = sequenceTOption(bidOption, askOption);
 // const deltaOption = quoteOption.map(([bid, ask]) => getDelta(bid, ask));
 // const sideOption = quoteOption.map(([bid, ask]) => getSide(bid, ask));
-// console.log({ bidOption, askOption, deltaOption, sideOption });
+// console.log({ bidOption, askOption, quoteOption });
+// console.log({ bidOption, askOption, quoteOption, deltaOption, sideOption });
 
 // console.log({
 // 	bid: bidOption.toNullable(),
@@ -47,13 +51,14 @@ console.log({ bid, ask, delta });
 // 	side: sideOption.toNullable(),
 // });
 
-// const stringifyOption = <T>(value: Option<T>) => value.fold('-', value => `${value}`);
+// const stringifyOption = <T>(value: Option<T>) => value.fold('-', value => `${value}&&&`);
+// const stringifyOption1 = <T>(value: Option<T>) => value.foldL(constant('-'), value => `${value}!!!`);
 
 // console.log({
-// 	bid: bidOption.map(delta => `${delta}`).getOrElse('-'),
+// 	bid: bidOption.map(bid => `${bid}`).getOrElse('-'),
 // 	ask: askOption.fold('-', ask => `${ask}`),
 // 	delta: stringifyOption(deltaOption),
-// 	side: sideOption.getOrElse('sell'),
+// 	side: stringifyOption1(sideOption),
 // });
 
 // const arrayNumber = [1, 2]; // Array<number>
