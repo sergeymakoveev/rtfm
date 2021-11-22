@@ -1,3 +1,5 @@
+#!/usr/bin/env ts-node
+
 import { Observable, interval, of, combineLatest } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
