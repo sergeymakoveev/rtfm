@@ -40,21 +40,9 @@
       "parser": "@typescript-eslint/parser"
     },
     {
-      "files": [".eslintrc.js", "{config,scripts,util}/**/*.{ts,js}"],
-      "parser": "@typescript-eslint/parser",
-      "parserOptions": {
-        "project": "./tsconfig.node.json"
-      },
-      "rules": {
-        "@typescript-eslint/no-var-requires": "off",
-        "@typescript-eslint/no-require-imports": "off"
-      }
-    },
-    {
       "files": ["*.json"],
       "parser": "@typescript-eslint/parser",
       "parserOptions": {
-        "project": "./tsconfig.node.json",
         "extraFileExtensions": [".json"]
       }
     }
@@ -157,13 +145,34 @@
     "import/first": "error",
     "import/newline-after-import": "error",
     "import/order": [
-      "error",
+      "warn",
       {
-        "groups": [["builtin", "external", "internal", "parent", "sibling", "index", "object"], "unknown"],
+        "groups": ["builtin", "external", "internal", "parent", "sibling", "index", "object", "unknown"],
         "newlines-between": "always",
         "pathGroups": [
           {
-            "pattern": "{*/,./,../,../../,../../../,../../../../,../../../../../}/**/*.{css,styl}",
+            "pattern": "react",
+            "group": "external",
+            "position": "before"
+          },
+          {
+            "pattern": "@devexperts/**",
+            "group": "external",
+            "position": "after"
+          },
+          {
+            "pattern": "react-kit/**",
+            "group": "internal"
+          },
+          {
+            "pattern": "*.svg",
+            "patternOptions": { "matchBase": true },
+            "group": "unknown",
+            "position": "before"
+          },
+          {
+            "pattern": "*.css",
+            "patternOptions": { "matchBase": true },
             "group": "unknown",
             "position": "after"
           }
