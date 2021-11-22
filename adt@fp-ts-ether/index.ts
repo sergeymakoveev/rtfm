@@ -1,5 +1,8 @@
+#!/usr/bin/env ts-node
+
 import * as E from 'fp-ts/lib/Either';
 import { pipe } from 'fp-ts/lib/pipeable';
+
 import Either = E.Either;
 
 const args = process.argv.slice(2);
