@@ -1,23 +1,29 @@
+/**
+ * react-context-hooks-mvvm-demo.ts
+ * https://gist.github.com/raveclassic/8cca743f0196a99e9cf0949cc53fb2c9
+ */
+
 import { fold, pending, RemoteData } from '@devexperts/remote-data-ts';
 import { constNull } from 'fp-ts/lib/function';
 import { createElement, memo, useEffect, useMemo, useState } from 'react';
 import { pipe } from 'fp-ts/lib/pipeable';
-import { LiveData } from '@devexperts/rx-utils/dist/live-data.utils';
+import { liveData, LiveData } from '@devexperts/rx-utils/dist/live-data.utils';
 import { newSink, Sink } from '@devexperts/rx-utils/dist/sink2.utils';
 import { Context, context } from '@devexperts/rx-utils/dist/context2.utils';
 import { observable } from '@devexperts/rx-utils/dist/observable.utils';
 import { distinctUntilChanged, share, switchMap } from 'rxjs/operators';
 import { render } from 'react-dom';
 import { Observable } from 'rxjs';
+import { constVoid } from 'fp-ts/lib/function';
 
-const useObservable = <A>(fa: Observable<A>, initial: A): A => {
+const useObservable = <A,>(fa: Observable<A>, initial: A): A => {
 	const [a, setA] = useState(initial);
 	// create subscription immediately
 	const subscription = useMemo(() => fa.subscribe(setA), [fa]);
 	useEffect(() => () => subscription.unsubscribe(), [subscription]);
 	return a;
 };
-const useSink = <A>(factory: () => Sink<A>, dependencies: unknown[]): A => {
+const useSink = <A,>(factory: () => Sink<A>, dependencies: unknown[]): A => {
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	const sa = useMemo(factory, dependencies);
 	// create subscription immediately
@@ -26,7 +32,7 @@ const useSink = <A>(factory: () => Sink<A>, dependencies: unknown[]): A => {
 	return sa.value;
 };
 
-const renderRemoteData = <A>(
+const renderRemoteData = <A,>(
 	onSuccess: (a: A) => JSX.Element | null,
 ): ((data: RemoteData<Error, A>) => JSX.Element | null) =>
 	fold(
@@ -128,7 +134,11 @@ const AppContainer = context.combine(App, newAppViewModel, (App, newAppViewModel
 	}),
 );
 
-declare const userService: Context<{ apiURL: string }, UserService>;
+const userService: Context<{ apiURL: string }, UserService> = context.of({
+	getAllUserIds: () => liveData.of(['1', '2', '3', '4', '5']),
+	getUserName: id => liveData.of(`User-${id}`),
+	updateUserName: (id, name) => liveData.of(constVoid()),
+});
 
 const Root = context.combine(context.defer(AppContainer, 'userService'), userService, (getAppContainer, userService) =>
 	memo(() => {
