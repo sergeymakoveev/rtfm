@@ -1,0 +1,15 @@
+#InfiniteScrollNativeExample {
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+}
+
+#InfiniteScrollNativeExample h1 {
+	text-align: center;
+}
+
+#InfiniteScrollNativeExample .content-wrapper {
+	overflow: auto;
+	display: flex;
+	flex-direction: column-reverse;
+}

@@ -1,0 +1,8 @@
+:root {
+	--ifm-color-emphasis-200: #0253b3;
+	--ifm-background-color: white;
+}
+
+.description {
+	display: flex;
+}
