@@ -1,0 +1,18 @@
+// :global(.MuiAutocomplete-root).anchor {
+// 	width: 20%;
+// }
+
+:global(.MuiAutocomplete-popper) {
+	.listbox {
+		max-height: none;
+		:global(.MuiAutocomplete-option) {
+			// max-height: 50px;
+			flex-flow: column;
+			align-items: start;
+			& > .label {
+				font-weight: bold;
+				white-space: nowrap;
+			}
+		}
+	}
+}
