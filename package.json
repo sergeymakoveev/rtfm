@@ -6,9 +6,11 @@
     "yarn": "^1"
   },
   "workspaces": [
+    "ts.type-printer",
     "fp-ts.unsafecoerce",
     "dx.mvvm",
     "mui.autocomplete.virtualized",
+    "mui.theme",
     "mui.x-data-grid",
     "road2monad",
     "react.security",

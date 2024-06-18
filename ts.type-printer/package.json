@@ -1,0 +1,13 @@
+{
+  "name": "ts.type-printer",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "@mui/material": "^5",
+    "tsx": "^4",
+    "typescript": "^5"
+  },
+  "scripts": {
+    "start": "tsx ./type-printer.ts"
+  }
+}
