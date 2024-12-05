@@ -16,6 +16,9 @@ type ExIntersection = { a: string } & { b: string };
 type _ExFlat = IntersectionToFlat<ExIntersection>;
 
 export type PartialKeys<T extends {}, K extends keyof T> = IntersectionToFlat<Omit<T, K> & Partial<Pick<T, K>>>;
+export type PartialKeysExclude<T extends Record<string, unknown>, K extends keyof T> = IntersectionToFlat<
+	Pick<T, K> & Partial<Omit<T, K>>
+>;
 
 type _ExPartialKeys = PartialKeys<ExObj, 'a'>;
 
