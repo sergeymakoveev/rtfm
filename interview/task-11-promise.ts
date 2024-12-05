@@ -1,4 +1,14 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+
+// Какие состояния есть у Promise
+// Задай промис, который резолвит значение true
+Promise.resolve(true);
+// Задай промис, который реджектит значение true
+Promise.reject(true);
+// Залогируй значение промиса
+
+const res = await Promise.resolve('Привет');
+
 {
 	const createPromiseWithTimeout = (timeout: number, result: string, isRejected = false) =>
 		new Promise((resolve, reject) => {

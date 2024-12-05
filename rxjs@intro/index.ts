@@ -2,6 +2,7 @@
 
 import { Observable, interval, of, combineLatest } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
+import { fromArrayLike } from 'rxjs/internal/observable/from';
 
 const getNumberFromRange = (min = 0, max = 100) => Math.round(min + Math.random() * (max - min));
 const getRandomBoolean = () => Math.random() > 0.5;

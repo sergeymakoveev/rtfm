@@ -1,29 +1,41 @@
 #!/usr/bin/env ts-node
 
-Promise.resolve(+process.argv[process.argv.length - 1])
-	.then(value => {
-		if (isNaN(value)) {
-			throw new Error('Value is not a number');
-		}
-		return value;
-	})
-	.then(
-		value => console.log({ value }),
-		error => console.log({ error }),
-	);
+let isTimeTravelStarted = false;
+let {
+	promise: cancelTimeTravelFinishPromise,
+	resolve: cancelTimeTravelFinishPromiseResolve,
+	reject: cancelTimeTravelFinishPromiseReject,
+} = Promise.withResolvers<boolean>();
+const trackedTimeTravelFinishPromises: Set<Promise<boolean>> = new Set();
 
-Promise.resolve()
-	.then(() => console.log(1))
-	.then(() => console.log(2))
-	.then(() => {
-		throw Error('Exception');
-	})
-	.then(
-		() => console.log(3),
-		() => console.log(4),
-	)
-	.then(() => console.log(5))
-	.catch(() => console.log(6))
-	.then(() => console.log(7))
-	.then(() => console.log(8))
-	.catch(() => console.log(9));
+export const checkIsTimeTravelStarted = () => isTimeTravelStarted;
+export const setIsTimeTravelStarted = (state: boolean) => (isTimeTravelStarted = state);
+const setIsTimeTravelStartedFalse = () => (isTimeTravelStarted = false);
+export const trackIsTimeTravelFinish = () => {
+	cancelTimeTravelFinishPromiseReject();
+	trackedTimeTravelFinishPromises.delete(cancelTimeTravelFinishPromise);
+	const {
+		promise: newCancelTimeTravelFinishPromise,
+		resolve: newCancelTimeTravelFinishPromiseResolve,
+		reject: newCancelTimeTravelFinishPromiseReject,
+	} = Promise.withResolvers<boolean>();
+	cancelTimeTravelFinishPromise = newCancelTimeTravelFinishPromise;
+	cancelTimeTravelFinishPromiseResolve = newCancelTimeTravelFinishPromiseResolve;
+	cancelTimeTravelFinishPromiseReject = newCancelTimeTravelFinishPromiseReject;
+	const {
+		promise: timeTravelFinishPromise,
+		resolve: timeTravelFinishPromiseResolve,
+		reject: timeTravelFinishPromiseReject,
+	} = Promise.withResolvers<boolean>();
+	timeTravelFinishPromise.then(() => {
+		const isAllResolved = Array.from(trackedTimeTravelFinishPromises).filter(([promise]) => promise);
+	});
+	trackedTimeTravelFinishPromises.add(timeTravelFinishPromise);
+	trackedTimeTravelFinishPromises.add(cancelTimeTravelFinishPromise);
+	Promise.all(trackedTimeTravelFinishPromises).then(setIsTimeTravelStartedFalse);
+	return {
+		timeTravelFinishPromise,
+		timeTravelFinishPromiseResolve,
+		timeTravelFinishPromiseReject,
+	};
+};

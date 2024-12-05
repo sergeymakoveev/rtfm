@@ -7,7 +7,13 @@ import { useCallback, useState, SetStateAction, Dispatch } from 'react';
 
 export function useFlag(
 	defaultValue = false,
-): [boolean, VoidFunction, VoidFunction, VoidFunction, Dispatch<SetStateAction<boolean>>] {
+): [
+	isFlag: boolean,
+	setIsFlagTrue: VoidFunction,
+	setIsFlagFalse: VoidFunction,
+	toggleIsFlag: VoidFunction,
+	setIsFlag: Dispatch<SetStateAction<boolean>>,
+] {
 	const [isFlag, setIsFlag] = useState(defaultValue);
 	const setIsFlagTrue = useCallback(() => setIsFlag(true), []);
 
