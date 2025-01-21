@@ -30,9 +30,6 @@ export type DeepPartial<T> = {
 };
 type _ExDeepPartial = DeepPartial<ExObj>;
 
-export type TypeWithSuggest<T, Suggest extends T> = (T & Record<never, never>) | Suggest;
+export type TypeWithSuggest<T extends string | number | symbol, Suggest extends T> = Suggest | Omit<T, Suggest>;
+// export type TypeWithSuggest<T, Suggest extends T> = (T & Record<never, never>) | Suggest;
 type _ExTypeWithSuggest = TypeWithSuggest<`${number}/${number}`, '16/9' | '16/10' | '4/3'>;
-
-export type NonEmptyArray<T> = [T, ...T[]];
-const _ExNonEmptyArray: NonEmptyArray<number> = [1];
-const _ExNonEmptyArrayError: NonEmptyArray<number> = [];
