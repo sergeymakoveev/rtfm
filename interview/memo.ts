@@ -1,11 +1,6 @@
 #!/usr/bin/env ts-node
 
-function sum(a: number, b: number) {
-	console.log('start');
-	return a + b;
-}
-
-function memo(fn) {
+export function memo(fn) {
 	let memoized: Array<{ memoizedArgs: Array<unknown>; memoizedResult: Array<unknown> }> = [];
 	return function (...args) {
 		const memoizedIndex = memoized.findIndex(({ memoizedArgs }) =>
@@ -19,6 +14,11 @@ function memo(fn) {
 		memoized = [...memoized, { memoizedArgs: args, memoizedResult: result }];
 		return result;
 	};
+}
+
+function sum(a: number, b: number) {
+	console.log('start');
+	return a + b;
 }
 
 const memoizedSum = memo(sum);
