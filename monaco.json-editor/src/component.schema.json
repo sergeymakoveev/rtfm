@@ -1,0 +1,26 @@
+{
+  "$ref": "#/definitions/ComponentProps",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": {
+    "ComponentProps": {
+      "additionalProperties": false,
+      "properties": {
+        "paramBooleanRequired": {
+          "type": "boolean"
+        },
+        "paramNumber": {
+          "type": "number"
+        },
+        "paramStringRequired": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "paramBooleanRequired",
+        "paramStringRequired"
+      ],
+      "type": "object"
+    }
+  }
+}
+

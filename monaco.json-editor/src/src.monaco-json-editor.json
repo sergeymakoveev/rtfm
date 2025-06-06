@@ -1,0 +1,13 @@
+{
+  "blocks": [
+    {
+      "type": "Component1",
+      "params": {
+        "param1": true,
+        "param2": "2",
+        "param3": 3,
+        "booleanParam": true
+      }
+    }
+  ]
+}
