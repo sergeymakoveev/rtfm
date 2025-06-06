@@ -1,13 +1,13 @@
 import type {
-  CssVarsThemeOptions as CssVarsThemeOptionsRAW,
-  ColorSystemOptions as ColorSystemOptionsRAW,
-  PaletteOptions as PaletteOptionsRAW,
-  PaletteColorOptions as PaletteColorOptionsRAW,
-  SimplePaletteColorOptions as SimplePaletteColorOptionsRAW,
+	CssVarsThemeOptions as CssVarsThemeOptionsRAW,
+	ColorSystemOptions as ColorSystemOptionsRAW,
+	PaletteOptions as PaletteOptionsRAW,
+	PaletteColorOptions as PaletteColorOptionsRAW,
+	SimplePaletteColorOptions as SimplePaletteColorOptionsRAW,
 } from '@mui/material';
 import type {
-  TypographyOptions as TypographyOptionsRAW,
-  TypographyStyleOptions as TypographyStyleOptionsRAW,
+	TypographyOptions as TypographyOptionsRAW,
+	TypographyStyleOptions as TypographyStyleOptionsRAW,
 } from '@mui/material/styles/createTypography';
 
 type CssVarsThemeOptions = CssVarsThemeOptionsRAW;
@@ -21,13 +21,13 @@ type TypographyOptions = TypographyOptionsRAW;
 type TypographyStyleOptions = TypographyStyleOptionsRAW;
 
 export const TYPES = [
-  'CssVarsThemeOptions',
-  'components',
-  'colorSchemes',
-  'ColorSystemOptions',
-  'PaletteOptions',
-  'PaletteColorOptions',
-  'SimplePaletteColorOptions',
-  'TypographyOptions',
-  'TypographyStyleOptions',
+	'CssVarsThemeOptions',
+	'components',
+	'colorSchemes',
+	'ColorSystemOptions',
+	'PaletteOptions',
+	'PaletteColorOptions',
+	'SimplePaletteColorOptions',
+	'TypographyOptions',
+	'TypographyStyleOptions',
 ];
