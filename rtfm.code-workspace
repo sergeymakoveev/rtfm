@@ -1,0 +1,46 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"cSpell.words": [
+			"mvvm",
+			"use-isnan",
+			"codegen",
+			"entscheidungsproblem",
+			"intro",
+			"languages",
+			"livecoding",
+			"swagger",
+			"алонзо",
+			"опенсорс",
+			"техминутки"
+		],
+		"json.schemas": [
+			{
+				"fileMatch": ["package.json"],
+				"url": "https://json.schemastore.org/package.json"
+			},
+			{
+				"fileMatch": [".eslintrc"],
+				"url": "https://json.schemastore.org/eslintrc.json"
+			},
+			{
+				"fileMatch": [".prettierrc"],
+				"url": "https://json.schemastore.org/prettierrc.json"
+			},
+			{
+				"fileMatch": ["tsconfig.json", "tsconfig.*.json"],
+				"url": "https://json.schemastore.org/tsconfig.json"
+			},
+			{
+				"fileMatch": ["src.monaco-json-editor.json"],
+				"url": "./monaco.json-editor/src/src.schema.json"
+			}
+		],
+		"json.trace.server": "messages",
+		"json.schemaDownload.enable": true
+	}
+}
