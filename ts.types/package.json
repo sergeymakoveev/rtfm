@@ -1,0 +1,12 @@
+{
+  "name": "ts.types",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "tsx": "^4",
+    "typescript": "^5",
+    "ts-reset": "^0.0.1",
+    "types-spring": "^2.2.8"
+  },
+  "include": ["./node_modules/**/*"]
+}
