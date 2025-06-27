@@ -6,15 +6,16 @@
     "yarn": "^1"
   },
   "workspaces": [
+    "ts.types",
     "ts.type-printer",
     "fp-ts.unsafecoerce",
-    "dx.mvvm",
+    "-dx.mvvm",
     "mui.autocomplete.virtualized",
     "mui.theme",
     "mui.x-data-grid",
     "road2monad",
     "react.security",
-    "react.testing",
+    "-react.testing",
     "react.virtualization",
     "react.rerenders"
   ],
@@ -33,12 +34,6 @@
     "@faker-js/faker": "^8.0.1",
     "faker": "^5.5.3",
     "fast-json-patch": "^3.0.0-1",
-    "fp-ts": "^2.0.0",
-    "fp-ts-rxjs": "^0.6.13",
-    "immer": "^9.0.1",
-    "io-ts": "^2.0.0",
-    "monocle-ts": "^2.0.0",
-    "rxjs": "^7.8.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.6.2"
   },
