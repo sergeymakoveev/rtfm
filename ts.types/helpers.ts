@@ -35,3 +35,13 @@ type _ExDeepPartial = DeepPartial<ExObj>;
 export type TypeWithSuggest<T extends string | number | symbol, Suggest extends T> = Suggest | Omit<T, Suggest>;
 // export type TypeWithSuggest<T, Suggest extends T> = (T & Record<never, never>) | Suggest;
 type _ExTypeWithSuggest = TypeWithSuggest<`${number}/${number}`, '16/9' | '16/10' | '4/3'>;
+
+export type ReplaceTo<T extends object, K extends keyof T, R = unknown> = IntersectionToFlat<
+	Omit<T, K> & {
+		[P in K]: T[P] extends undefined ? R | undefined : R;
+	}
+>;
+type _ExReplaceTo = ReplaceTo<ExObj, 'd' | 'e' | 'f', true>;
+
+export type valueof<C extends object> = C[keyof C];
+type _ExValueof = valueof<ExObj>;
