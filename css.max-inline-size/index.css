@@ -1,0 +1,71 @@
+.wrapper {
+	border: 1px dotted #f00;
+	padding: 5px;
+	display: flex;
+	width: 80%;
+	container-type: scroll-state;
+	container-name: wrapper;
+}
+
+.wrapper-second {
+	border: 1px dotted #0f0;
+}
+
+._wrapper-second {
+	padding: 5px;
+	max-width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+}
+
+._wrapper-second {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(0, 1fr));
+	_grid-template-columns: min-content min-content;
+	_grid-template-rows: 1fr 1fr;
+	_grid-auto-rows: 1fr;
+	_grid-auto-flow: dense;
+	_gap: 5px;
+}
+
+.wrapper-second {
+	/* display: inline-block; */
+	/*max-inline-size: max-content;*/
+	display: flex;
+	_flex-wrap: wrap;
+	padding: 5px;
+	width: fit-content;
+	/*
+	column-fill: auto;
+	column-count: 2;
+	column-rule: 1px solid orange;
+	height: 25px;
+	border: 1px dotted #0f0;
+	padding: 8px;
+	*/
+}
+
+._wrapper-second::first-line {
+	color: red !important;
+}
+
+._wrapper-second {
+	display: inline-block;
+	_text-align-last: justify;
+}
+
+@container wrapper scroll-state(scrollable: top) {
+	.button {
+		color: red !important;
+	}
+}
+
+.button {
+	display: inline-block;
+	border: 1px dotted #00f;
+	text-wrap: nowrap;
+}
+
+.button:last-child {
+	color: green;
+}

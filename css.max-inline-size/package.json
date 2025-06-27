@@ -1,0 +1,11 @@
+{
+  "name": "css-buttons",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start": "npm run browser-sync",
+    "develop": "npm run nodemon & npm run browsersync",
+    "nodemon": "nodemon -w index.*",
+    "browser-sync": "browser-sync --watch --no-ui --no-open --no-notify"
+  }
+}

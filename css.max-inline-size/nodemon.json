@@ -1,0 +1,5 @@
+{
+  "events": {
+    "restart": "browser-sync reload"
+  }
+}
