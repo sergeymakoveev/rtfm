@@ -6,7 +6,9 @@
         "param1": true,
         "param2": "2",
         "param3": 3,
-        "booleanParam": true
+        "booleanParam": true,
+        "stringParam": "",
+        "numberParam": 0
       }
     }
   ]

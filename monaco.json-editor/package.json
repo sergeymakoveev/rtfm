@@ -8,11 +8,12 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "schema:generate": "npx --yes ts-json-schema-generator@2 --path './src/component.tsx' --type 'ComponentProps' > ./src/component.schema.json"
+    "schema:generate": "npx --yes ts-json-schema-generator@2 --path './src/component.tsx' --no-type-check --type 'ComponentProps' --out './src/component.schema.json'"
   },
   "dependencies": {
     "@monaco-editor/react": "4.4.6",
     "ajv": "8.17.1",
+    "monaco-editor":"^0.52.2",
     "react": "16.14.0",
     "react-dom": "16.14.0"
   },

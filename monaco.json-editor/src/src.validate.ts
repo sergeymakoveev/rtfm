@@ -3,7 +3,7 @@
 import Ajv from 'ajv';
 
 import schema from './src.schema.json';
-import data from './src.monaco-json-editor.json';
+import data from './src.json';
 
 const ajv = new Ajv(); // options can be passed, e.g. {allErrors: true}
 
