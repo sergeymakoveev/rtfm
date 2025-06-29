@@ -1,4 +1,6 @@
-type Page = {
+import type { ComponentProps } from './component.types';
+
+export type Page = {
 	blocks: (
 		| {
 				type: 'Component1';
@@ -11,6 +13,9 @@ type Page = {
 					numberParam: number;
 				};
 		  }
-		| { type: 'Component2'; params: ComponentProps }
+		| {
+				type: 'Component2';
+				params: ComponentProps;
+		  }
 	)[];
 };

@@ -76,23 +76,24 @@ const DIAGNOSTICS_OPTIONS: languages.json.DiagnosticsOptions = {
 	],
 };
 
-const getHandleValidate = (name: string): OnValidate => markers => {
-	console.log(`## (${name}) handleValidate: `, { markers });
-};
+const getHandleValidate =
+	(name: string): OnValidate =>
+	markers => {
+		console.log(`## (${name}) handleValidate: `, { markers });
+	};
 
 const handleJsonValidate = getHandleValidate('json');
 const handleTsValidate = getHandleValidate('ts');
 
 const TS_COMPILER_OPTIONS: languages.typescript.CompilerOptions = {
-    target: languages.typescript.ScriptTarget.ES2020,
-    allowNonTsExtensions: true,
-    // moduleResolution: languages.typescript.ModuleResolutionKind.NodeJs,
-    // module: languages.typescript.ModuleKind.ESNext,
-    // noEmit: true,
-    // typeRoots: ['node_modules/@types'],
-    // types: ['my-lib'] // <=== NOTE THIS
+	target: languages.typescript.ScriptTarget.ES2020,
+	allowNonTsExtensions: true,
+	// moduleResolution: languages.typescript.ModuleResolutionKind.NodeJs,
+	// module: languages.typescript.ModuleKind.ESNext,
+	// noEmit: true,
+	// typeRoots: ['node_modules/@types'],
+	// types: ['my-lib'] // <=== NOTE THIS
 };
-
 
 export const App: React.FC = () => {
 	// const [count, setCount] = React.useState(0);
@@ -131,8 +132,7 @@ type Page = {
 		// console.log('## handleMount', { monaco, compilerOptions });
 	};
 
-
-		// React.useEffect(() => {
+	// React.useEffect(() => {
 	// 	console.log('## effect', { monaco });
 
 	// 	monaco?.languages.json.jsonDefaults.setDiagnosticsOptions(DIAGNOSTICS_OPTIONS);
@@ -141,11 +141,11 @@ type Page = {
 	const typescriptText = `(${jsonText} satisfies Page );`;
 
 	return (
-		<div style={{display: 'flex', height: '100%', width: '100%'}}>
+		<div style={{ display: 'flex', height: '100%', width: '100%' }}>
 			<Editor
 				onMount={handleJsonEditorMount}
 				onValidate={handleJsonValidate}
-				defaultLanguage='json'
+				defaultLanguage="json"
 				theme={EDITOR_THEME}
 				value={jsonText}
 				options={{
@@ -156,7 +156,7 @@ type Page = {
 			<Editor
 				onMount={handleTsEditorMount}
 				onValidate={handleTsValidate}
-				defaultLanguage='typescript'
+				defaultLanguage="typescript"
 				theme={EDITOR_THEME}
 				value={typescriptText}
 				options={{

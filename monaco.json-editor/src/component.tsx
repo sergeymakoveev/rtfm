@@ -1,10 +1,6 @@
 import React from 'react';
 
-export type ComponentProps = {
-	paramBooleanRequired: boolean;
-	paramNumber?: number;
-	paramStringRequired: string;
-};
+import type { ComponentProps } from './component.types';
 
 export const Component: React.FC<ComponentProps> = props => (
 	<div>

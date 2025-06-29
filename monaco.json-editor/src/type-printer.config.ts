@@ -1,5 +1,5 @@
-import type { ComponentProps as ComponentPropsRAW } from './component';
+import type { Page as PageRAW } from './page.types.ts';
 
-type ComponentProps = ComponentPropsRAW;
+type Page = PageRAW;
 
-export const TYPES = ['ComponentProps'];
+export const TYPES = ['Page'];
