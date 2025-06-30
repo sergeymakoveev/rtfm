@@ -14,3 +14,9 @@ type Page = {
 		| { type: 'Component2'; params: ComponentProps }
 	)[];
 };
+
+type ComponentProps = {
+	paramBooleanRequired: boolean;
+	paramNumber: number;
+	paramStringRequired: string;
+};

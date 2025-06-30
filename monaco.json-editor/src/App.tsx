@@ -5,6 +5,7 @@ import { languages } from 'monaco-editor';
 
 import json from './src.json';
 import schema from './src.schema.json';
+import types from './type-printer.results?raw';
 
 import './App.css';
 
@@ -105,28 +106,10 @@ export const App: React.FC = () => {
 		monaco.languages.json.jsonDefaults.setDiagnosticsOptions(DIAGNOSTICS_OPTIONS);
 	};
 
+	console.log('## ', { types });
+
 	const handleTsEditorMount: OnMount = (_editor, monaco) => {
-		monaco.languages.typescript.typescriptDefaults.addExtraLib(`
-type Page = {
-	blocks: (
-		| {
-				type: 'Component1';
-				params: {
-					param1: boolean;
-					param2: string;
-					param3: number;
-					booleanParam: boolean;
-					stringParam: string;
-					numberParam: number;
-				};
-		  }
-		| {
-				type: 'Component2';
-				params: ComponentProps;
-		  }
-	)[];
-};
-`);
+		monaco.languages.typescript.typescriptDefaults.addExtraLib(types);
 		// monaco.languages.typescript.typescriptDefaults.setCompilerOptions(TS_COMPILER_OPTIONS);
 		// const compilerOptions = monaco.languages.typescript.typescriptDefaults.getCompilerOptions();
 		// console.log('## handleMount', { monaco, compilerOptions });
