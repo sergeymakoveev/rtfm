@@ -2,8 +2,9 @@
 
 import Ajv from 'ajv';
 
+import data from '../json/src.json';
+
 import schema from './src.schema.json';
-import data from './src.json';
 
 const ajv = new Ajv(); // options can be passed, e.g. {allErrors: true}
 

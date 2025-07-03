@@ -1,0 +1,104 @@
+{
+  "$ref": "#/definitions/Page",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": {
+    "ComponentProps": {
+      "additionalProperties": false,
+      "properties": {
+        "paramBooleanRequired": {
+          "type": "boolean"
+        },
+        "paramNumber": {
+          "type": "number"
+        },
+        "paramStringRequired": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "paramBooleanRequired",
+        "paramStringRequired"
+      ],
+      "type": "object"
+    },
+    "Page": {
+      "additionalProperties": false,
+      "properties": {
+        "blocks": {
+          "items": {
+            "anyOf": [
+              {
+                "additionalProperties": false,
+                "properties": {
+                  "params": {
+                    "additionalProperties": false,
+                    "properties": {
+                      "booleanParam": {
+                        "type": "boolean"
+                      },
+                      "numberParam": {
+                        "type": "number"
+                      },
+                      "param1": {
+                        "type": "boolean"
+                      },
+                      "param2": {
+                        "type": "string"
+                      },
+                      "param3": {
+                        "type": "number"
+                      },
+                      "stringParam": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "param1",
+                      "param2",
+                      "param3",
+                      "booleanParam",
+                      "stringParam",
+                      "numberParam"
+                    ],
+                    "type": "object"
+                  },
+                  "type": {
+                    "const": "Component1",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "type",
+                  "params"
+                ],
+                "type": "object"
+              },
+              {
+                "additionalProperties": false,
+                "properties": {
+                  "params": {
+                    "$ref": "#/definitions/ComponentProps"
+                  },
+                  "type": {
+                    "const": "Component2",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "type",
+                  "params"
+                ],
+                "type": "object"
+              }
+            ]
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "blocks"
+      ],
+      "type": "object"
+    }
+  }
+}

@@ -7,12 +7,20 @@ import ts from 'typescript'; // get the name of the directory
 
 import { TYPES } from './type-printer.config';
 
+type TypeWithSuggest<T extends string | number | symbol, Suggest extends T> = Suggest | Omit<T, Suggest>;
+
+const skippedAliases = ['JSONArray', 'JSONObject'] as const;
+
+type SkippedAliasName = typeof skippedAliases[number];
+
+type AliasName = TypeWithSuggest<string, SkippedAliasName>;
+
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const __dirname = path.dirname(__filename);
 
-function extractTypeSignature(filename: string, aliasNames: string[]): string {
+function extractTypeSignature(filename: string, aliasNames: AliasName[]): string {
 	const program: ts.Program = ts.createProgram([filename], {
 		emitDeclarationOnly: true,
 	});
@@ -31,7 +39,7 @@ function extractTypeSignature(filename: string, aliasNames: string[]): string {
 
 			console.log('## Processed', { aliasName });
 
-			const isSkipped = ['JSONArray', 'JSONObject', 'Indent', 'Project', 'TankerData'].includes(aliasName);
+			const isSkipped = skippedAliases.includes(aliasName as SkippedAliasName);
 
 			const statement: ts.Statement | undefined = sourceFile.statements.find(
 				s => ts.isTypeAliasDeclaration(s) && s.name.text === aliasName,
@@ -67,8 +75,12 @@ function extractTypeSignature(filename: string, aliasNames: string[]): string {
 			// const stringIndexType = type.getStringIndexType();
 
 			if (isSkipped) {
-				console.log('## Skipped, set to "any"', { aliasName, flags: type.getFlags() });
-				// type.aliasSymbol;
+				console.log('## Skipped, and set to "any"', { aliasName, flags: type.getFlags() });
+
+				// if (aliasName === 'Block') {
+				//     debugger;
+				// }
+
 				stringifiedType = 'any';
 			} else if (type.isUnion()) {
 				stringifiedType = type.types
@@ -105,15 +117,15 @@ function extractTypeSignature(filename: string, aliasNames: string[]): string {
 		.join('\n\n');
 }
 
-const typeSignature = extractTypeSignature(`${__dirname}/type-printer.config.ts`, TYPES);
+const typeSignature = extractTypeSignature(`${__dirname}/type-printer.config.ts`, TYPES as AliasName[]);
 
 const code = [
 	'/* eslint-disable max-len */',
 	'/* eslint-disable quotes */',
 	'/* eslint-disable @typescript-eslint/no-explicit-any */',
 	'/* eslint-disable @typescript-eslint/no-unused-vars */',
-	'// eslint-disable-next-line @typescript-eslint/ban-ts-comment',
-	'// @ts-nocheck',
+	// '// eslint-disable-next-line @typescript-eslint/ban-ts-comment',
+	// '// @ts-nocheck',
 	'',
 	typeSignature,
 	'',

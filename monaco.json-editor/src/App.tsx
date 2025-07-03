@@ -3,9 +3,9 @@ import React from 'react';
 import { default as Editor, type OnMount, type OnValidate } from '@monaco-editor/react';
 import { languages } from 'monaco-editor';
 
-import json from './src.json';
-import schema from './src.schema.json';
-import types from './type-printer.results?raw';
+import types from '../type-printer/type-printer.results.ts?raw';
+import json from '../json/src.json';
+import schema from '../json-schema/src.schema.json';
 
 import './App.css';
 
@@ -97,8 +97,6 @@ const TS_COMPILER_OPTIONS: languages.typescript.CompilerOptions = {
 };
 
 export const App: React.FC = () => {
-	// const [count, setCount] = React.useState(0);
-
 	// const monaco = useMonaco();
 
 	const handleJsonEditorMount: OnMount = (_editor, monaco) => {

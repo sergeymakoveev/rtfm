@@ -8,7 +8,9 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "schema:generate": "npx --yes ts-json-schema-generator@2 --path './src/component.tsx' --no-type-check --type 'ComponentProps' --out './src/component.schema.json'"
+    "schema:generate": "npx --yes ts-json-schema-generator@2 --path './json-schema/src.ts' --no-type-check --type '*' --out './json-schema/src.schema.json'",
+    "schema:validate": "tsx ./json-schema/src.validate.ts",
+    "type:generate": "tsx ./type-printer/type-printer.ts"
   },
   "dependencies": {
     "@monaco-editor/react": "4.4.6",
