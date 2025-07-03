@@ -86,6 +86,7 @@ const getHandleValidate =
 const handleJsonValidate = getHandleValidate('json');
 const handleTsValidate = getHandleValidate('ts');
 
+/*
 const TS_COMPILER_OPTIONS: languages.typescript.CompilerOptions = {
 	target: languages.typescript.ScriptTarget.ES2020,
 	allowNonTsExtensions: true,
@@ -95,6 +96,7 @@ const TS_COMPILER_OPTIONS: languages.typescript.CompilerOptions = {
 	// typeRoots: ['node_modules/@types'],
 	// types: ['my-lib'] // <=== NOTE THIS
 };
+*/
 
 export const App: React.FC = () => {
 	// const monaco = useMonaco();
