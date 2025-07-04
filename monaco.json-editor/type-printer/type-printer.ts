@@ -81,7 +81,8 @@ function extractTypeSignature(filename: string, aliasNames: DumpedTypes, skipped
 				//     debugger;
 				// }
 
-				stringifiedType = 'unknown';
+				// stringifiedType = 'unknown';
+				stringifiedType = 'any';
 			} else if (type.isUnion()) {
 				stringifiedType = type.types
 					.map(
