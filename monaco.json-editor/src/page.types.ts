@@ -1,16 +1,16 @@
 import type { ComponentProps } from './component.types';
 
-type JSONPrimitive = string | number | boolean | null | undefined;
+export type JSONPrimitive = string | number | boolean | null | undefined;
 
-type JSONValue = JSONPrimitive | JSONObject | JSONArray;
+export type JSONValue = JSONPrimitive | JSONObject | JSONArray;
 
-type JSONObject = {
+export type JSONObject = {
 	[x: string]: JSONValue;
 };
 
-type JSONArray = JSONValue[];
+export type JSONArray = JSONValue[];
 
-type JSONPrimitiveObject = {
+export type JSONPrimitiveObject = {
 	[x: string]: JSONPrimitive | JSONPrimitive[];
 };
 
@@ -27,7 +27,7 @@ export type JSONCompatibleProps<T, C extends keyof T = never> = Omit<T, C | 'dat
 		key?: number;
 	};
 
-export type Page = {
+type PageProps = {
 	blocks: (
 		| {
 				type: 'Component1';
@@ -45,4 +45,14 @@ export type Page = {
 				params: ComponentProps;
 		  }
 	)[];
+	onClick?: VoidFunction;
+	jsonPrimitive: JSONPrimitive;
+	jsonValue: JSONValue;
+	jsonArray: JSONArray;
+	jsonPrimitiveObject?: JSONPrimitiveObject;
+	jsonObject?: JSONObject;
 };
+
+type PageJsonCompatible = JSONCompatibleProps<PageProps>;
+
+export type Page = PageJsonCompatible;

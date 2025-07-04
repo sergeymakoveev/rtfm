@@ -11,5 +11,9 @@
         "numberParam": 0
       }
     }
-  ]
+  ],
+  "jsonPrimitive": 1,
+  "jsonArray": 1,
+  "jsonValue": [1,2,3],
+  "key": 1
 }

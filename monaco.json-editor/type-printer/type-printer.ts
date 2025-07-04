@@ -4,23 +4,18 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 
 import ts from 'typescript'; // get the name of the directory
+// import ts, { TypeFlags } from 'typescript'; // get the name of the directory
 
-import { TYPES } from './type-printer.config';
+import { DUMPED_TYPES, SKIPPED_TYPES } from './type-printer.config';
+import type { SkippedTypes, DumpedTypes } from './type-printer.config';
 
-type TypeWithSuggest<T extends string | number | symbol, Suggest extends T> = Suggest | Omit<T, Suggest>;
-
-const skippedAliases = ['JSONArray', 'JSONObject'] as const;
-
-type SkippedAliasName = typeof skippedAliases[number];
-
-type AliasName = TypeWithSuggest<string, SkippedAliasName>;
-
+// https://iamwebwiz.medium.com/how-to-fix-dirname-is-not-defined-in-es-module-scope-34d94a86694d
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const __dirname = path.dirname(__filename);
 
-function extractTypeSignature(filename: string, aliasNames: AliasName[]): string {
+function extractTypeSignature(filename: string, aliasNames: DumpedTypes, skippedAliasNames: SkippedTypes): string {
 	const program: ts.Program = ts.createProgram([filename], {
 		emitDeclarationOnly: true,
 	});
@@ -39,7 +34,7 @@ function extractTypeSignature(filename: string, aliasNames: AliasName[]): string
 
 			console.log('## Processed', { aliasName });
 
-			const isSkipped = skippedAliases.includes(aliasName as SkippedAliasName);
+			const isSkipped = skippedAliasNames.includes(aliasName as SkippedTypes[number]);
 
 			const statement: ts.Statement | undefined = sourceFile.statements.find(
 				s => ts.isTypeAliasDeclaration(s) && s.name.text === aliasName,
@@ -53,11 +48,16 @@ function extractTypeSignature(filename: string, aliasNames: AliasName[]): string
 			let stringifiedType: string;
 
 			const getTypeSignature = (type: ts.Type) => {
+				// if (aliasName === 'Page') {
+				// 	debugger;
+				// }
 				const fields: string[] = [];
 				const props = type.getProperties();
 
 				// Iterate over the `ts.Symbol`s representing Property Nodes of `ts.Type`
 				for (const prop of props) {
+					// eslint-disable-next-line no-bitwise
+					const signOptional = Boolean(prop.flags & ts.SymbolFlags.Optional) ? '?' : '';
 					const name: string = prop.getName();
 					const propType: ts.Type = typeChecker.getTypeOfSymbolAtLocation(prop, statement);
 					const propTypeName: string = typeChecker.typeToString(
@@ -66,7 +66,7 @@ function extractTypeSignature(filename: string, aliasNames: AliasName[]): string
 						ts.TypeFormatFlags.NoTruncation,
 					);
 
-					fields.push(`${name}: ${propTypeName};`);
+					fields.push(`${name}${signOptional}: ${propTypeName};`);
 				}
 
 				return `{\n  ${fields.join('\n  ')}\n}`;
@@ -81,7 +81,7 @@ function extractTypeSignature(filename: string, aliasNames: AliasName[]): string
 				//     debugger;
 				// }
 
-				stringifiedType = 'any';
+				stringifiedType = 'unknown';
 			} else if (type.isUnion()) {
 				stringifiedType = type.types
 					.map(
@@ -105,9 +105,9 @@ function extractTypeSignature(filename: string, aliasNames: AliasName[]): string
 					)
 					.join(' | ');
 				// } else if (type.getFlags() === TypeFlags.Object && stringIndexType) {
-				//     console.log('## ', { aliasName });
-				//     // type.aliasSymbol;
-				//     stringifiedType = 'any';
+				// 	console.log('## ', { aliasName });
+				// 	// type.aliasSymbol;
+				// 	stringifiedType = 'any';
 			} else {
 				stringifiedType = getTypeSignature(type);
 			}
@@ -117,9 +117,11 @@ function extractTypeSignature(filename: string, aliasNames: AliasName[]): string
 		.join('\n\n');
 }
 
-const typeSignature = extractTypeSignature(`${__dirname}/type-printer.config.ts`, TYPES as AliasName[]);
+const typeSignature = extractTypeSignature(`${__dirname}/type-printer.config.ts`, DUMPED_TYPES, SKIPPED_TYPES);
 
 const code = [
+	'/* eslint-disable @typescript-eslint/member-delimiter-style */',
+	'/* eslint-disable prettier/prettier */',
 	'/* eslint-disable max-len */',
 	'/* eslint-disable quotes */',
 	'/* eslint-disable @typescript-eslint/no-explicit-any */',

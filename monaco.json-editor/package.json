@@ -10,7 +10,9 @@
     "preview": "vite preview",
     "schema:generate": "npx --yes ts-json-schema-generator@2 --path './json-schema/src.ts' --no-type-check --type '*' --out './json-schema/src.schema.json'",
     "schema:validate": "tsx ./json-schema/src.validate.ts",
-    "type:generate": "tsx ./type-printer/type-printer.ts"
+    "types:generate": "tsx ./type-printer/type-printer.ts",
+    "types:generate:debug": "tsx --inspect-brk ./type-printer/type-printer.ts",
+    "generate": "npm run schema:generate; npm run types:generate"
   },
   "dependencies": {
     "@monaco-editor/react": "4.4.6",

@@ -108,6 +108,7 @@ function extractTypeSignature(filename: string, aliasNames: string[]): string {
 const typeSignature = extractTypeSignature(`${__dirname}/type-printer.config.ts`, TYPES);
 
 const code = [
+	'/* eslint-disable prettier/prettier */',
 	'/* eslint-disable max-len */',
 	'/* eslint-disable quotes */',
 	'/* eslint-disable @typescript-eslint/no-explicit-any */',

@@ -8,6 +8,7 @@ import json from '../json/src.json';
 import schema from '../json-schema/src.schema.json';
 
 import './App.css';
+import type { Page } from './page.types';
 
 const EDITOR_THEME = 'vs-dark' as const;
 const EDITOR_INDENT_SPACES = 4 as const;
@@ -28,8 +29,12 @@ const DIAGNOSTICS_OPTIONS: languages.json.DiagnosticsOptions = {
 		{
 			uri: 'page-schema', // id of the first schema
 			fileMatch: ['*'], // associate with our model
-			schema,
-		},
+			// schema,
+			schema: {
+				$ref: '#/definitions/Page',
+				...schema,
+			}
+		}
 		// {
 		// 	uri: 'http://myserver/foo-schema.json', // id of the first schema
 		// 	fileMatch: ['*'], // associate with our model
@@ -98,6 +103,23 @@ const TS_COMPILER_OPTIONS: languages.typescript.CompilerOptions = {
 };
 */
 
+export const TS_CODE_SUFFIX = 'satisfies Page';
+
+const wrapJsonText2Ts = (jsonText?: string): string|undefined => jsonText ? `(${jsonText} ${TS_CODE_SUFFIX})` : undefined;
+const convertTsText2JsText = (tsText: string): string => tsText.replace(TS_CODE_SUFFIX, '');
+
+const evalTsText2JsObj = <T=object>(tsText?: string): T|undefined => {
+    try {
+        // eslint-disable-next-line no-eval
+        return tsText ? window.eval(convertTsText2JsText(tsText)) as T : undefined;
+    } catch {
+        return undefined;
+    }
+};
+
+const stringifyJsObject =
+    <T=object>(jsObject: T|undefined) => jsObject ? JSON.stringify(jsObject, null, EDITOR_INDENT_SPACES) : undefined;
+
 export const App: React.FC = () => {
 	// const monaco = useMonaco();
 
@@ -108,8 +130,15 @@ export const App: React.FC = () => {
 
 	console.log('## ', { types });
 
+	const handleTsChange = (tsText: string) => {
+		const jsObject = evalTsText2JsObj<Page>(tsText);
+		const jsonText = stringifyJsObject<Page>(jsObject);
+		console.log('## (ts) handleTsChange', { jsObject, jsonText });
+	};
+
 	const handleTsEditorMount: OnMount = (_editor, monaco) => {
-		monaco.languages.typescript.typescriptDefaults.addExtraLib(types);
+		// monaco.languages.typescript.typescriptDefaults.addExtraLib(types);
+		monaco.languages.typescript.typescriptDefaults.setExtraLibs([{ content: types}]);
 		// monaco.languages.typescript.typescriptDefaults.setCompilerOptions(TS_COMPILER_OPTIONS);
 		// const compilerOptions = monaco.languages.typescript.typescriptDefaults.getCompilerOptions();
 		// console.log('## handleMount', { monaco, compilerOptions });
@@ -121,7 +150,7 @@ export const App: React.FC = () => {
 	// 	monaco?.languages.json.jsonDefaults.setDiagnosticsOptions(DIAGNOSTICS_OPTIONS);
 	// }, [monaco]);
 
-	const typescriptText = `(${jsonText} satisfies Page );`;
+	const typescriptText = wrapJsonText2Ts(jsonText);
 
 	return (
 		<div style={{ display: 'flex', height: '100%', width: '100%' }}>
@@ -142,6 +171,7 @@ export const App: React.FC = () => {
 				defaultLanguage="typescript"
 				theme={EDITOR_THEME}
 				value={typescriptText}
+            	onChange={handleTsChange}
 				options={{
 					automaticLayout: true,
 					language: 'typescript',

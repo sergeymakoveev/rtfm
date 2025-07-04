@@ -1,5 +1,4 @@
 {
-  "$ref": "#/definitions/Page",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "definitions": {
     "ComponentProps": {
@@ -21,7 +20,13 @@
       ],
       "type": "object"
     },
-    "Page": {
+    "JSONArray": {
+      "items": {
+        "$ref": "#/definitions/JSONValue"
+      },
+      "type": "array"
+    },
+    "JSONCompatibleProps<alias-src_page.types.ts-778-1255-src_page.types.ts-0-1355>": {
       "additionalProperties": false,
       "properties": {
         "blocks": {
@@ -93,12 +98,98 @@
             ]
           },
           "type": "array"
+        },
+        "jsonArray": {
+          "$ref": "#/definitions/JSONArray"
+        },
+        "jsonObject": {
+          "$ref": "#/definitions/JSONObject"
+        },
+        "jsonPrimitive": {
+          "type": [
+            "string",
+            "number",
+            "boolean",
+            "null"
+          ]
+        },
+        "jsonPrimitiveObject": {
+          "$ref": "#/definitions/JSONPrimitiveObject"
+        },
+        "jsonValue": {
+          "$ref": "#/definitions/JSONValue"
+        },
+        "key": {
+          "type": "number"
+        },
+        "onClick": {
+          "additionalProperties": false,
+          "type": "object"
         }
       },
       "required": [
-        "blocks"
+        "blocks",
+        "jsonArray",
+        "jsonValue"
       ],
       "type": "object"
+    },
+    "JSONObject": {
+      "additionalProperties": {
+        "$ref": "#/definitions/JSONValue"
+      },
+      "type": "object"
+    },
+    "JSONPrimitive": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        },
+        {
+          "not": {}
+        }
+      ]
+    },
+    "JSONPrimitiveObject": {
+      "additionalProperties": {
+        "anyOf": [
+          {
+            "$ref": "#/definitions/JSONPrimitive"
+          },
+          {
+            "items": {
+              "$ref": "#/definitions/JSONPrimitive"
+            },
+            "type": "array"
+          }
+        ]
+      },
+      "type": "object"
+    },
+    "JSONValue": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/JSONPrimitive"
+        },
+        {
+          "$ref": "#/definitions/JSONObject"
+        },
+        {
+          "$ref": "#/definitions/JSONArray"
+        }
+      ]
+    },
+    "Page": {
+      "$ref": "#/definitions/JSONCompatibleProps%3Calias-src_page.types.ts-778-1255-src_page.types.ts-0-1355%3E"
     }
   }
 }
