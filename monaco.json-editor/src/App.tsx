@@ -130,7 +130,7 @@ export const App: React.FC = () => {
 
 	console.log('## ', { types });
 
-	const handleTsChange = (tsText: string) => {
+	const handleTsChange = (tsText?: string) => {
 		const jsObject = evalTsText2JsObj<Page>(tsText);
 		const jsonText = stringifyJsObject<Page>(jsObject);
 		console.log('## (ts) handleTsChange', { jsObject, jsonText });
