@@ -1,14 +1,16 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
 // Какие состояния есть у Promise
+
 // Задай промис, который резолвит значение true
-Promise.resolve(true);
+// Promise.resolve(true);
+
 // Задай промис, который реджектит значение true
-Promise.reject(true);
+// Promise.reject(true);
+
 // Залогируй значение промиса
-
-const res = await Promise.resolve('Привет');
-
+// const res = await Promise.resolve('Привет');
+/*
 {
 	const createPromiseWithTimeout = (timeout: number, result: string, isRejected = false) =>
 		new Promise((resolve, reject) => {
@@ -84,4 +86,42 @@ const res = await Promise.resolve('Привет');
 	// 	// 	error => console.log('then onRejected', error),
 	// 	// )
 	// 	.catch(error => console.log('main promise catch', error));
+}
+*/
+
+{
+	const promiseAll = (...promises: Promise<unknown>[]) =>
+		new Promise((resolve, reject) => {
+			const results = new Array(promises.length);
+			promises.forEach((promise, index) =>
+				promise.then(
+					result => {
+						results[index] = result;
+						// console.log('## ', results.filter(Boolean).length, promises.length);
+						if (results.filter(Boolean).length === promises.length) {
+							resolve(results);
+						}
+					},
+					error => reject(error),
+				),
+			);
+		});
+
+	const promiseDelayed = (delay: number, value: unknown | Error) =>
+		new Promise((resolve, reject) =>
+			setTimeout(() => (value instanceof Error ? reject(value) : resolve(value)), delay),
+		);
+
+	// promiseDelayed(100, Error('Error'))
+	// 	.then(value => console.log('## resolved', { value }))
+	// 	.catch(error => console.log('## rejected', { error }));
+
+	promiseAll(
+		promiseDelayed(100, 100),
+		// promiseDelayed(200, Error('Error')),
+		promiseDelayed(150, 150),
+		promiseDelayed(450, 450),
+	)
+		.then(value => console.log('## resolved', { value }))
+		.catch(error => console.log('## rejected', { error }));
 }

@@ -2,7 +2,42 @@
  * Задачи на работу с массивами
  * https://habr.com/ru/articles/741108/
  */
+{
+	type Interval = [min: number, max: number];
 
+	type Intervals = Interval[];
+
+	const merge = (...intervals: Intervals) => {
+		const sortedBoundaries = Array.from(
+			new Set(
+				intervals
+					.sort(([aStart], [bStart]) => (aStart > bStart ? 1 : aStart < bStart ? -1 : 0))
+					.map(([start, end]) => new Array(end - start + 1).fill(1).map((_, i) => i + start))
+					.flat()
+					.sort((a, b) => (a > b ? 1 : a < b ? -1 : 0)),
+			),
+		);
+
+		const [start, end, ...restSortedBoundaries] = sortedBoundaries;
+		const mergedIntervals = [[start, end]];
+		for (const boundary of restSortedBoundaries) {
+			const [start, end] = mergedIntervals.pop() ?? [];
+			if (start !== undefined && end !== undefined) {
+				if (boundary === end + 1) {
+					mergedIntervals.push([start, boundary]);
+				} else {
+					mergedIntervals.push([start, end]);
+					mergedIntervals.push([boundary, boundary]);
+				}
+			}
+		}
+		return mergedIntervals;
+	};
+
+	console.log('## merge', merge([11, 12], [2, 3], [5, 7], [1, 4], [8, 10], [6, 8]));
+	console.log('## merge', merge([11, 12], [2, 3], [6, 7], [1, 4], [6, 8]));
+}
+/*
 {
 	// Объединение интервалов в массиве
 	console.log('\n--- Объединение интервалов в массиве '.padEnd(80, '-'), '\n');
@@ -121,3 +156,4 @@
 	mergeApply(merge);
 	mergeApply(merge1);
 }
+*/
