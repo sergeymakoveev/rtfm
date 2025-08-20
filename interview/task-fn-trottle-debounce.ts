@@ -8,7 +8,7 @@
  * Написать собственные функции debounce и throttle
  **/
 
-{
+if (false) {
 	const throttle = (fn, interval, mystUseLastValue?) => {
 		let timer;
 		let throttledArgs;
@@ -90,7 +90,7 @@
 	debouncedLogLastValue('debouncedLogLastValue', count++);
 }
 
-{
+if (false) {
 	const debounce = (fn: (...args: unknown[]) => unknown, delay: number) => {
 		let timer;
 		return (...args: unknown[]) => {
@@ -125,4 +125,68 @@
 	logThrottled('3');
 	logThrottled('4');
 	logThrottled('6');
+}
+
+if (true) {
+	const logging = name => value => console.log(name, value);
+
+	const debounceStart = (fn, interval) => {
+		let timer;
+		let firstArgs;
+		return (...args) => {
+			if (!firstArgs) {
+				firstArgs = args;
+			}
+			clearTimeout(timer);
+			timer = setTimeout(fn, interval, firstArgs);
+		};
+	};
+
+	const debounceEnd = (fn, interval) => {
+		let timer;
+		return (...args) => {
+			clearTimeout(timer);
+			timer = setTimeout(fn, interval, args);
+		};
+	};
+
+	const throttleStart = (fn, interval) => {
+		let timer;
+		return (...args) => {
+			if (!timer) {
+				timer = setTimeout(fn, interval, args);
+			}
+		};
+	};
+
+	const throttleEnd = (fn, interval) => {
+		let timer;
+		let lastArgs;
+		return (...args) => {
+			lastArgs = args;
+			if (!timer) {
+				timer = setTimeout(() => fn(lastArgs), interval);
+			}
+		};
+	};
+
+	const loggingDebouncedStart = debounceStart(logging('debounceStart'), 300);
+	loggingDebouncedStart(1);
+	setTimeout(loggingDebouncedStart, 100, 3);
+	loggingDebouncedStart(2);
+
+	const loggingDebouncedEnd = debounceEnd(logging('debounceEnd'), 300);
+	loggingDebouncedEnd(1);
+	setTimeout(loggingDebouncedEnd, 100, 3);
+	loggingDebouncedEnd(2);
+
+	const loggingThrottledStart = throttleStart(logging('throttleStart'), 300);
+	loggingThrottledStart(1);
+	setTimeout(loggingThrottledStart, 100, 3);
+	loggingThrottledStart(2);
+
+	const loggingThrottledEnd = throttleEnd(logging('throttleEnd'), 300);
+	loggingThrottledEnd(1);
+	setTimeout(loggingThrottledEnd, 100, 3);
+	loggingThrottledEnd(2);
 }

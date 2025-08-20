@@ -1,5 +1,3 @@
-import { default as fp } from 'lodash/fp';
-
 /**
  * https://habr.com/ru/articles/488510/
  * Задача: Обход дерева
@@ -85,7 +83,7 @@ import { default as fp } from 'lodash/fp';
 			return values;
 		};
 
-		console.log('## DFS iterative treeValues', getTreeValues(fp.cloneDeep(tree)));
+		console.log('## DFS iterative treeValues', getTreeValues(structuredClone(tree)));
 	}
 
 	// Рекурсивный обход в ширину n-арного дерева  (BFS): ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
@@ -95,7 +93,7 @@ import { default as fp } from 'lodash/fp';
 			...children.flatMap(({ children }) => getTreeValues(children)),
 		];
 
-		console.log('## BFS iterative treeValues', getTreeValues([tree]));
+		console.log('## BFS recursive treeValues', getTreeValues([tree]));
 	}
 
 	// Итеративный обход в ширину n-арного дерева (BFS): ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
@@ -111,7 +109,7 @@ import { default as fp } from 'lodash/fp';
 			return values;
 		};
 
-		console.log('## BFS iterative treeValues', getTreeValues(fp.cloneDeep(tree)));
+		console.log('## BFS iterative treeValues', getTreeValues(structuredClone(tree)));
 	}
 }
 
@@ -141,10 +139,17 @@ import { default as fp } from 'lodash/fp';
 		console.log('## DFS recursive binaryTreeValues', getBinaryTreeValues(binaryTree));
 	}
 
-	// Итеративный обход в глубину бинарного дерева (DFS): ['A', 'B', 'D', 'E', 'C', 'F', 'G']
+	// TODO: Итеративный обход в глубину бинарного дерева (DFS): ['A', 'B', 'D', 'E', 'C', 'F', 'G']
 	{
-		const getBinaryTreeValues = (tree: BinaryTree | null) => {
-			const values = [tree?.value];
+		const getBinaryTreeValues = (tree: BinaryTree) => {
+			const values = [tree.value];
+			const children = [tree.right, tree.left];
+			while (children.length) {
+				const subTree = children.pop();
+				values.push(subTree?.value);
+				subTree?.right && children.push(subTree.right);
+				subTree?.left && children.push(subTree.left);
+			}
 			return values;
 		};
 
@@ -167,5 +172,22 @@ import { default as fp } from 'lodash/fp';
 			'## BFS recursive binaryTreeValues',
 			getBinaryTreeValues({ value: '', left: binaryTree, right: null }),
 		);
+	}
+
+	// TODO: Итеративный обход в ширину бинарного дерева  (BFS): ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
+	{
+		const getBinaryTreeValues = (tree: BinaryTree) => {
+			const values = [tree.value];
+			const children = [tree.left, tree.right];
+			while (children.length) {
+				const subTree = children.shift();
+				values.push(subTree?.value);
+				subTree?.left && children.push(subTree.left);
+				subTree?.right && children.push(subTree.right);
+			}
+			return values;
+		};
+
+		console.log('## BFS iterative binaryTreeValues', getBinaryTreeValues(binaryTree));
 	}
 }

@@ -17,11 +17,12 @@
 	}
 	// eslint-disable-next-line no-var
 	var obj = { x: 'bar' };
+	{
+		f.bind(obj)();
+		f.apply(obj);
+		f.call(obj);
 
-	f.bind(obj)();
-	f.apply(obj);
-	f.call(obj);
-
-	obj.log = f;
-	obj.log();
+		obj.log = f;
+		obj.log();
+	}
 }

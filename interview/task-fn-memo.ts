@@ -8,25 +8,28 @@
  **/
 {
 	const factorial = value => {
-		console.log('calculate factorial');
+		// console.log('calculate factorial');
 		return value > 1 ? value * factorial(--value) : value;
 	};
-
-	const memo = fn => {
-		const cache = new Map();
-		return function (arg) {
-			if (cache.has(arg)) {
-				return cache.get(arg);
-			} else {
-				const result = fn(arg);
-				cache.set(arg, result);
+	if (true) {
+		const memo = fn => {
+			const cache = new Map();
+			return (...args: unknown[]) => {
+				if (cache.has(args)) {
+					return cache.get(args);
+				}
+				const result = fn(...args);
+				cache.set(args, result);
 				return result;
-			}
+			};
 		};
-	};
+		const factorialMemoised = memo(factorial);
 
-	const factorialMemoised = memo(factorial);
-
-	console.log(factorial(5), factorial(5));
-	console.log(factorialMemoised(5), factorialMemoised(5));
+		console.time();
+		console.log(factorial(5), factorial(5));
+		console.timeEnd();
+		console.time();
+		console.log(factorialMemoised(5), factorialMemoised(5));
+		console.timeEnd();
+	}
 }

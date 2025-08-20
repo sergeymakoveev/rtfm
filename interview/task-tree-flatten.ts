@@ -7,7 +7,7 @@
 (преобразованы в одноуровневую структуру), с использованием точечной нотации
 для представления иерархии свойств.
 */
-{
+if (false) {
 	const obj = {
 		a: {
 			b: {
@@ -40,7 +40,7 @@
 	// { "f": 4, "a.e": 3, "a.b.c": 1, "a.b.d": 2 }
 }
 
-{
+if (false) {
 	type Obj = { [key: string]: number | Obj };
 	const obj: Obj = {
 		a: {
@@ -63,4 +63,31 @@
 		);
 
 	console.log('## flattenObj', flattenObj(obj));
+}
+
+if (true) {
+	type Obj = { [k: string]: number | Obj };
+	const obj: Obj = {
+		a: {
+			b: {
+				c: 1,
+				d: 2,
+			},
+			e: 3,
+		},
+		f: 4,
+	};
+
+	const flattenObject = (obj: Obj, prefix?: string) =>
+		Object.entries(obj).reduce(
+			(acc, [key, value]) => ({
+				...acc,
+				...(typeof value === 'number'
+					? { [`${prefix ? `${prefix}.` : ''}${key}`]: value }
+					: flattenObject(value, `${prefix ? `${prefix}.` : ''}${key}`)),
+			}),
+			{},
+		);
+
+	console.log(flattenObject(obj));
 }

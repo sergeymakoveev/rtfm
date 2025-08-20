@@ -52,6 +52,8 @@
 		[[-2, -1, 1, 2], 3],
 		[[100, -9, 2, -3, 5], 100],
 		[[1, 2, 3], 6],
+		// не работает
+		[[-1, -2, -3], -1],
 	] as const);
 }
 
@@ -79,4 +81,6 @@
 	console.log(getSubarrayMaxSum([-2, -1, 1, 2]), 3);
 	console.log(getSubarrayMaxSum([100, -9, 2, -3, 5]), 100);
 	console.log(getSubarrayMaxSum([1, 2, 3]), 6);
+	// не работает
+	console.log(getSubarrayMaxSum([-1, -2, -3]), -1);
 }

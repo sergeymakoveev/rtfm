@@ -8,5 +8,10 @@
 }
 {
 	const factorial = (input: number) => (input === 0 ? 1 : input * factorial(input - 1));
-	console.log('## factorial', factorial(5));
+	console.log('## factorial(5):', factorial(5));
+}
+// C оптимизацией хвостовой рекурсии
+{
+	const factorial = (value: number, acc: number = 1) => (value === 0 ? acc : factorial(value - 1, acc * value));
+	console.log('## factorial(5):', factorial(5));
 }

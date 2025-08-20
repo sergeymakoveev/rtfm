@@ -8,7 +8,7 @@
 	const sortedDates = dates.toSorted((a, b) => {
 		const aTime = a.getTime();
 		const bTime = b.getTime();
-		return aTime > bTime ? 1 : aTime < bTime ? -1 : 0;
+		return aTime - bTime;
 	});
 	console.log('## ', { dates, sortedDates });
 }
