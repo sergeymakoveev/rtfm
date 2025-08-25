@@ -17,12 +17,15 @@
 
 В худшем случае (вырожденное дерево) операции занимают O(n).
 Требуется балансировка для поддержания эффективности.
-Операции с BST
-Вставка (Insert)
-Поиск (Search)
-Удаление (Delete)
-Обходы (Traversals): In-order, Pre-order, Post-order.
 
+Операции с BST:
+* Вставка (Insert)
+* Поиск (Search)
+* Удаление (Delete)
+* Обходы (Traversals): DFS/BFS, In-order, Pre-order, Post-order.
+* Высота (getHeight)
+* Получение наибольшего (getMax)
+* Получение наименьшего (getMin)
 
 */
 
@@ -33,6 +36,8 @@
 	   9      12
 	 7   8  11  13
 	*/
+
+	const binaryTreeValues = [10, 9, 12, 7, 8, 11, 13];
 
 	type BinaryTree = {
 		value: number;
@@ -54,6 +59,7 @@
 		},
 	};
 
+	// реализация на рекурсии
 	if (false) {
 		const add = (tree?: BinaryTree) => (value: number): BinaryTree =>
 			tree === undefined
@@ -107,10 +113,7 @@
 		const getDepth = (tree?: BinaryTree): number =>
 			tree === undefined ? 0 : Math.max(1, getDepth(tree.left) + 1, getDepth(tree.right) + 1);
 
-		const bsTree = [10, 9, 12, 7, 8, 11, 13].reduce<BinaryTree | undefined>(
-			(tree, value) => add(tree)(value),
-			undefined,
-		);
+		const bsTree = binaryTreeValues.reduce<BinaryTree | undefined>((tree, value) => add(tree)(value), undefined);
 		console.log('depth: ', getDepth(bsTree));
 		console.log('tree: ', JSON.stringify(bsTree, null, 2));
 
@@ -132,6 +135,7 @@
 		console.log('del 9:', JSON.stringify(bsTreeDel9, null, 2));
 	}
 
+	// реализация на рекурсии
 	if (false) {
 		const add = (tree: BinaryTree, el: number) => {
 			if (tree.value === undefined) {
@@ -179,13 +183,15 @@
 		].forEach(create);
 	}
 
-	if (true) {
+	// реализация на рекурсии
+	if (false) {
 		type BTree = {
 			value: number;
 			left?: BinaryTree;
 			right?: BinaryTree;
 		};
-		const BinaryTreeEexample: BTree = {
+
+		const _BinaryTreeEexample: BTree = {
 			value: 10,
 			left: {
 				value: 9,
@@ -253,5 +259,57 @@
 		console.log('## find(1):\n', find(binaryTree, 1));
 		console.log('## find(10):\n', find(binaryTree, 10));
 		console.log('## find(11):\n', find(binaryTree, 11));
+	}
+
+	// реализация на итерациях
+	if (true) {
+		type BinaryTree = {
+			value: number;
+			left?: BinaryTree;
+			right?: BinaryTree;
+		};
+
+		const add = (tree: BinaryTree | undefined, value: number) => {
+			if (tree === undefined) {
+				return { value };
+			}
+			const stack: BinaryTree[] = [tree];
+			while (stack.length) {
+				const currentTree = stack.shift();
+				if (currentTree === undefined) {
+					continue;
+				}
+				if (value === currentTree.value) {
+					break;
+				}
+				if (value > currentTree.value) {
+					if (currentTree.right === undefined) {
+						currentTree.right = { value };
+						break;
+					} else {
+						stack.push(currentTree.right);
+						continue;
+					}
+				}
+				if (value < currentTree.value) {
+					if (currentTree.left === undefined) {
+						currentTree.left = { value };
+						break;
+					} else {
+						stack.push(currentTree.left);
+						continue;
+					}
+				}
+			}
+			return tree;
+		};
+
+		const binaryTree = binaryTreeValues.reduce<BinaryTree | undefined>(
+			(tree, value) => add(tree, value),
+			undefined,
+		);
+
+		console.log(binaryTreeValues);
+		console.log(JSON.stringify(binaryTree, null, 2));
 	}
 }
