@@ -150,31 +150,8 @@ if (false) {
 		'[[[]]]{(){}}[({})]{}{}[()]{([])}[[{}]]{}{}([{}]){[({})]}[',
 	].forEach(solution);
 }
-
-if (true) {
-	const openedBrackets = new Set(['[', '{', '(']);
-	const mapBrackets = { '}': '{', ')': '(', ']': '[' };
-
-	const solution = input => {
-		if (input.length % 2 !== 0 || ')]}'.includes(input.at(0)) || '([{'.includes(input.at(-1))) {
-			console.log('no');
-			return;
-		}
-		const stackOpenedBrackets = [];
-		for (const symbol of input) {
-			if (openedBrackets.has(symbol)) {
-				stackOpenedBrackets.push(symbol);
-			} else {
-				if (stackOpenedBrackets.at(-1) !== mapBrackets[symbol] || stackOpenedBrackets.length === 0) {
-					console.log('no');
-					return;
-				}
-				stackOpenedBrackets.pop();
-			}
-		}
-		console.log(stackOpenedBrackets.length === 0 ? 'yes' : 'no');
-	};
-	[
+{
+	const testStrings = [
 		// yes
 		'()[]{}', // Простые пары
 		'[({})]', // Вложенные скобки
@@ -203,5 +180,59 @@ if (true) {
 		'{{{{}}}[[[[]]]](())))', // Дисбаланс в разных типах
 		'([{)]}', // Хаотичный порядок
 		'({[({[({[({[}])}])}])}', // Неправильное закрытие в глубине
-	].forEach(solution);
+	];
+
+	if (true) {
+		const openedBrackets = new Set(['[', '{', '(']);
+		const mapBrackets = { '}': '{', ')': '(', ']': '[' };
+
+		const solution = input => {
+			if (input.length % 2 !== 0 || ')]}'.includes(input.at(0)) || '([{'.includes(input.at(-1))) {
+				console.log('no');
+				return;
+			}
+			const stackOpenedBrackets = [];
+			for (const symbol of input) {
+				if (openedBrackets.has(symbol)) {
+					stackOpenedBrackets.push(symbol);
+				} else {
+					if (stackOpenedBrackets.at(-1) !== mapBrackets[symbol] || stackOpenedBrackets.length === 0) {
+						console.log('no');
+						return;
+					}
+					stackOpenedBrackets.pop();
+				}
+			}
+			console.log(input, stackOpenedBrackets.length === 0 ? 'yes' : 'no');
+		};
+		testStrings.forEach(solution);
+	}
+
+	if (true) {
+		const checkBrackets = (bracketsString: string): boolean => {
+			const openedBrackets: string[] = [];
+			const isOpenedBracket = (symbol?: string): boolean => symbol !== undefined && '{[('.includes(symbol);
+			const closedBracket2openedBracket = { ')': '(', '}': '{', ']': '[' };
+			if (
+				bracketsString.length % 2 !== 0 ||
+				!isOpenedBracket(bracketsString.at(0)) ||
+				isOpenedBracket(bracketsString.at(-1))
+			) {
+				return false;
+			}
+			for (const bracket of bracketsString) {
+				if (isOpenedBracket(bracket)) {
+					openedBrackets.push(bracket);
+				} else {
+					if (closedBracket2openedBracket[bracket] !== openedBrackets.pop()) {
+						return false;
+					}
+				}
+			}
+			// console.log('## ', { openedBracketCounters });
+			return openedBrackets.length ? false : true;
+		};
+
+		testStrings.forEach(testString => console.log(checkBrackets(testString), testString));
+	}
 }
