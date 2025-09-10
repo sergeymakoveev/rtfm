@@ -55,6 +55,22 @@
 		return state;
 	}
 
+	/*
+	function reduceTreeR<T extends object, S>(
+		root: TreeItem<T>,
+		reducer: (state: S, item: T) => S,
+		initialState: S,
+		traversal: 'bfs' | 'dfs-pre-order' | 'dfs-post-order',
+	): S {
+		let state = initialState;
+		const trees = [root];
+
+		const traverseDfsPreOrder = (tree, reducer, state) => {};
+
+		return state;
+	}
+	*/
+
 	type TreeValue = { value: number };
 	type State = number[];
 
