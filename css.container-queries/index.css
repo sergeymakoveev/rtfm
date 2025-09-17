@@ -1,0 +1,116 @@
+body {
+	padding: 40px;
+	font-size: 16px;
+}
+
+section {
+	width: 176px;
+	--container-height: 60;
+}
+
+.wrapper {
+	background-color: #0000ff;
+}
+.container {
+	background-color: #00ff0099;
+}
+.content {
+	background-color: #ff000033;
+}
+
+/* container-query */
+
+#container-query .wrapper {
+	height: var(--container-height);
+	overflow-y: hidden;
+}
+
+#container-query .container {
+	contain: size;
+	container-name: container;
+	container-type: size;
+	font-size: 20px;
+	height: var(--content-height);
+	line-height: normal;
+}
+
+@container container (min-height: 61px) {
+	.content {
+		font-size: 17px;
+	}
+}
+
+@container container (min-height: 92px) {
+	.content {
+		font-size: 12px;
+	}
+}
+
+/* transform-scale */
+
+#transform-scale .container {
+	height: var(--container-height);
+}
+
+#transform-scale .content {
+	--ratio: calc(var(--container-height) / var(--content-height));
+	transform-origin: top left;
+	transform: scale(var(--ratio));
+}
+
+/* container-query + transform-scale */
+
+#container-query-transform-scale .wrapper {
+	height: var(--container-height);
+	overflow-y: hidden;
+}
+
+#container-query-transform-scale .container {
+	height: var(--content-height);
+	contain: size;
+	container-name: container1;
+	container-type: size;
+	font-size: 20px;
+	line-height: normal;
+}
+
+@container container1 (min-height: 61px) {
+	.content {
+		--ratio: calc(var(--container-height) / var(--content-height));
+		transform-origin: top left;
+		transform: scale(var(--ratio));
+	}
+}
+
+/* transform-scale to calculated ratio */
+
+#transform-scale-to-calculated-ratio .container {
+	height: var(--container-height);
+}
+
+#transform-scale-to-calculated-ratio .content {
+	/* --ratio calculated in js-component and inject value into style={--ratio: xx;} */
+	/* --ratio: calc(var(--container-height) / var(--content-height)); */
+	transform-origin: top left;
+	transform: scale(var(--ratio));
+}
+
+/* container query inline-size */
+
+#adapt-font-size .content {
+	font-size: var(--base-font-size);
+	height: var(--container-height);
+	word-wrap: break-word;
+
+	--base-font-size: 16px;
+	/*
+	 30 - количество символов,
+	 помещающихся в заголовке 176px
+	 при базовом размере шрифта 16px
+	*/
+	--base-text-length: 75;
+	/* --real-text-length устанавливается в компоненте */
+	--text-length: max(var(--real-text-length), var(--base-text-length));
+	--font-ratio: calc(var(--base-text-length) / var(--text-length));
+	font-size: calc(var(--base-font-size) * var(--font-ratio));
+}

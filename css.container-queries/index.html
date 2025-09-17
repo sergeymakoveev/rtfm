@@ -1,0 +1,166 @@
+<html>
+	<head>
+		<link rel="stylesheet" href="./index.css" />
+		<script src="/browser-sync/browser-sync-client.js" />
+	</head>
+	<body>
+		<script src="./index.js" defer></script>
+
+		<h1>container-query</h1>
+
+		<section id="container-query">
+			<h2>One line</h2>
+			<div class="wrapper">
+				<div class="container">
+					<div class="content">1 one one one one one one</div>
+				</div>
+			</div>
+
+			<h2>Two lines</h2>
+			<div class="wrapper">
+				<div class="container">
+					<div class="content">1 one one one one one one 2 two two two two two two</div>
+				</div>
+			</div>
+
+			<h2>Three lines</h2>
+			<div class="wrapper">
+				<div class="container">
+					<div class="content">
+						1 one one one one one one 2 two two two two two two 3 three three three three three three
+					</div>
+				</div>
+			</div>
+
+			<h2>Four lines</h2>
+			<div class="wrapper">
+				<div class="container">
+					<div class="content">
+						1 one one one one one one 2 two two two two two two 3 three three three three three three 4 four
+						four four four four four
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<h1>transform-scale</h1>
+
+		<section id="transform-scale">
+			<h2>One line</h2>
+			<div class="container">
+				<div class="content">1 one one one one one one</div>
+			</div>
+
+			<h2>Two lines</h2>
+			<div class="container">
+				<div class="content">1 one one one one one one 2 two two two two two two</div>
+			</div>
+
+			<h2>Three lines</h2>
+			<div class="container">
+				<div class="content">
+					1 one one one one one one 2 two two two two two two 3 three three three three three three
+				</div>
+			</div>
+
+			<h2>Four lines</h2>
+			<div class="container">
+				<div class="content">
+					1 one one one one one one 2 two two two two two two 3 three three three three three three 4 four
+					four four four four four
+				</div>
+			</div>
+		</section>
+
+		<h1>container-query + transform-scale</h1>
+
+		<section id="container-query-transform-scale">
+			<h2>One line</h2>
+			<div class="wrapper">
+				<div class="container">
+					<div class="content">1 one one one one one one</div>
+				</div>
+			</div>
+
+			<h2>Two lines</h2>
+			<div class="wrapper">
+				<div class="container">
+					<div class="content">1 one one one one one one 2 two two two two two two</div>
+				</div>
+			</div>
+
+			<h2>Three lines</h2>
+			<div class="wrapper">
+				<div class="container">
+					<div class="content">
+						1 one one one one one one 2 two two two two two two 3 three three three three three three
+					</div>
+				</div>
+			</div>
+
+			<h2>Four lines</h2>
+			<div class="wrapper">
+				<div class="container">
+					<div class="content">
+						1 one one one one one one 2 two two two two two two 3 three three three three three three 4 four
+						four four four four four
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<h1>transform-scale to calculated ratio</h1>
+
+		<section id="transform-scale-to-calculated-ratio">
+			<h2>One line</h2>
+			<div class="container">
+				<div class="content">1 one one one one one one</div>
+			</div>
+
+			<h2>Two lines</h2>
+			<div class="container">
+				<div class="content">1 one one one one one one 2 two two two two two two</div>
+			</div>
+
+			<h2>Three lines</h2>
+			<div class="container">
+				<div class="content">
+					1 one one one one one one 2 two two two two two two 3 three three three three three three
+				</div>
+			</div>
+
+			<h2>Four lines</h2>
+			<div class="container">
+				<div class="content">
+					1 one one one one one one 2 two two two two two two 3 three three three three three three 4 four
+					four four four four four
+				</div>
+			</div>
+		</section>
+
+		<h1>adapt font-size in depend of text length</h1>
+		<section id="adapt-font-size">
+			<h2>One line</h2>
+
+			<div class="content" style="--real-text-length: 25">1 one one one one one one</div>
+
+			<h2>Two lines</h2>
+
+			<div class="content" style="--real-text-length: 51">
+				1 one one one one one one 2 two two two two two two
+			</div>
+
+			<h2>Three lines</h2>
+
+			<div class="content" style="--real-text-length: 89">
+				1 one one one one one one 2 two two two two two two 3 three three three three three three
+			</div>
+
+			<h2>Four lines</h2>
+			<div class="content" style="--real-text-length: 121">
+				1 one one one one one one 2 two two two two two two 3 three three three three three three 4 four four
+				four four four four
+			</div>
+		</section>
+	</body>
+</html>

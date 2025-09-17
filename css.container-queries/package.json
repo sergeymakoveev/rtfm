@@ -1,0 +1,8 @@
+{
+  "name": "css-container-queries",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start": "browser-sync start --server --files='*.css,*.html, *.js' --no-ui --no-open --no-notify"
+  }
+}
