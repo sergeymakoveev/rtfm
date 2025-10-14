@@ -154,6 +154,7 @@
       }
     ],
     "@typescript-eslint/no-var-requires": "error",
+    "@typescript-eslint/no-redeclare": "error",
     "@typescript-eslint/triple-slash-reference": ["error", { "path": "never" }],
     "@typescript-eslint/prefer-function-type": "off",
     "@typescript-eslint/prefer-interface": "off",
@@ -199,7 +200,7 @@
     "no-magic-numbers": "off",
     "no-multiple-empty-lines": "error",
     "no-new-wrappers": "error",
-    "no-redeclare": "error",
+    "no-redeclare": "off",
     "no-shadow": "off",
     "no-throw-literal": "error",
     "no-trailing-spaces": ["error", { "ignoreComments": true }],
